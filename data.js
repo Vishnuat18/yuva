@@ -1,5 +1,5 @@
 const monumentImages = [
-    { name: 'RPSIT - YUVA 2025-images-0.jpg', category: 'Cheif Guest: Actress Mirnalini Ravi' },
+    { name: 'RPSIT - YUVA 2025-images-0.jpg', category: 'Cheif Guest Actress Mirnalini Ravi' },
     { name: 'RPSIT - YUVA 2025-images-1.jpg', category: 'Chief Guest Actor Abishek Raja' },
     { name: 'RPSIT - YUVA 2025-images-2.jpg', category: 'Our Management' },
     { name: 'RPSIT - YUVA 2025-images-3.jpg', category: 'YUVA Student Coordinators' },
