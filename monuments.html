@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monuments Gallery - YUVA 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="gallery-page">
+    <div class="background-animation"></div>
+
+    <div class="rules-container">
+        <a href="index.html" class="back-link">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Back to Home
+        </a>
+
+        <header class="gallery-header">
+            <h1 class="gallery-title">Monuments of YUVA 2025</h1>
+            <p class="gallery-subtitle">Relive the moments and architectural beauty of last year's grand event.</p>
+        </header>
+
+        <div class="gallery-grid" id="monuments-gallery">
+            <!-- Images will be injected here by script.js -->
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const gallery = document.getElementById('monuments-gallery');
+            if (gallery && monumentImages) {
+                monumentImages.forEach(img => {
+                    const card = document.createElement('div');
+                    card.className = 'gallery-card';
+                    card.innerHTML = `
+                        <div class="gallery-img-wrapper">
+                            <img src="assests/monuments/${img.name}" alt="${img.category}" loading="lazy">
+                        </div>
+                        <div class="gallery-info">
+                            <span class="gallery-category">${img.category}</span>
+                        </div>
+                    `;
+                    gallery.appendChild(card);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
