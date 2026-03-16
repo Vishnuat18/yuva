@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>YUVA Music Dance Animation</title>
+
+<style>
+
+body{
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.container{
+position:relative;
+width:450px;
+height:450px;
+}
+
+.logo{
+position:absolute;
+width:100%;
+z-index:2;
+}
+
+/* Music symbols */
+
+.note{
+position:absolute;
+width:40px;
+filter: drop-shadow(0 0 8px white);
+}
+
+/* Positions + Different Animations */
+
+.note1{
+top:0%;
+left:50%;
+animation:bounce 2s infinite ease-in-out;
+}
+
+.note2{
+top:10%;
+left:80%;
+animation:spin 3s infinite linear;
+}
+
+.note3{
+top:30%;
+left:95%;
+animation:float 2.5s infinite ease-in-out;
+}
+
+.note4{
+top:60%;
+left:90%;
+animation:wiggle 2s infinite ease-in-out;
+}
+
+.note5{
+top:85%;
+left:70%;
+animation:jump 2.2s infinite ease-in-out;
+}
+
+.note6{
+top:95%;
+left:50%;
+animation:swing 3s infinite ease-in-out;
+}
+
+.note7{
+top:85%;
+left:20%;
+animation:bounce 2.3s infinite ease-in-out;
+}
+
+.note8{
+top:60%;
+left:5%;
+animation:spin 4s infinite linear;
+}
+
+.note9{
+top:30%;
+left:5%;
+animation:float 2.8s infinite ease-in-out;
+}
+
+.note10{
+top:10%;
+left:20%;
+animation:wiggle 2.5s infinite ease-in-out;
+}
+
+.note11{
+top:0%;
+left:35%;
+animation:swing 3.5s infinite ease-in-out;
+}
+
+/* Animations */
+
+@keyframes bounce{
+0%,100%{
+transform:translateY(0);
+}
+50%{
+transform:translateY(-15px);
+}
+}
+
+@keyframes spin{
+0%{
+transform:rotate(0deg);
+}
+100%{
+transform:rotate(360deg);
+}
+}
+
+@keyframes float{
+0%,100%{
+transform:translateY(0);
+}
+50%{
+transform:translateY(-10px) scale(1.1);
+}
+}
+
+@keyframes wiggle{
+0%,100%{
+transform:rotate(0deg);
+}
+25%{
+transform:rotate(-10deg);
+}
+75%{
+transform:rotate(10deg);
+}
+}
+
+@keyframes jump{
+0%,100%{
+transform:translateY(0);
+}
+40%{
+transform:translateY(-18px);
+}
+60%{
+transform:translateY(-8px);
+}
+}
+
+@keyframes swing{
+0%,100%{
+transform:rotate(0deg);
+}
+50%{
+transform:rotate(15deg);
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<img src="assests/unnamed-removebg-preview.png" class="logo">
+
+<img src="assests/mus.png" class="note note1">
+<img src="assests/mus1.png" class="note note2">
+<img src="assests/mus2.png" class="note note3">
+<img src="assests/mus3.png" class="note note4">
+<img src="assests/mus4.png" class="note note5">
+<img src="assests/mus5.png" class="note note6">
+<img src="assests/mus6.png" class="note note7">
+<img src="assests/mus7.png" class="note note8">
+<img src="assests/mus9.png" class="note note9">
+<img src="assests/mus1.png" class="note note10">
+<img src="assests/mus2.png" class="note note11">
+
+</div>
+
+</body>
+</html>
