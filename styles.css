@@ -287,6 +287,8 @@ body {
     position: fixed;
     top: 2rem;
     right: 3rem;
+    width: 100%;
+    margin: 5px;
     z-index: 1000;
 }
 
@@ -320,7 +322,6 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
-    padding-top: 4rem;
     width: 100%;
 }
 
@@ -335,10 +336,11 @@ body {
 .hero-presents span {
     color: var(--accent-magenta);
     font-family: 'Dancing Script', cursive;
-    font-weight: 600;
-    font-size: 2.5rem;
+    font-weight: 700;
+    font-size: 3rem; /* Slightly larger for impact */
     display: block;
-    margin-top: 5px;
+    margin-top: -5px;
+    text-shadow: 0 0 20px rgba(255, 0, 122, 0.3);
 }
 
 .hero-logo-container {
@@ -368,25 +370,38 @@ body {
 /* Desktop Navigation (sketch style) */
 .desktop-nav {
     display: none;
-    gap: 2rem;
-    margin-right: 3rem;
+    gap: 1.5rem;
 }
 
 .desktop-nav .nav-link {
-    font-size: 1rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
     text-decoration: none;
-    transition: all 0.3s ease;
+    padding: 0.8rem 1.8rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(5px);
 }
 
 .desktop-nav .nav-link:hover {
-    color: var(--accent-magenta);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: var(--accent-magenta);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 0, 122, 0.2);
+    color: #fff;
 }
 
 @media screen and (min-width: 1024px) {
     .desktop-nav {
         display: flex;
+    }
+
+    .menu-icon {
+        display: none;
     }
 
     .main-header {
@@ -399,9 +414,19 @@ body {
     .header-top {
         display: flex;
         align-items: center;
+        justify-content: flex-end; /* Align contents to the right */
         position: absolute;
-        top: 3rem;
-        right: 4rem;
+        top: 2rem;
+        right: 4%; /* Right side corner */
+        left: 4%;
+
+        z-index: 1000;
+    }
+
+    .desktop-nav {
+        display: flex;
+        gap: 1.5rem; /* Balanced space between options */
+        margin-right: 0; /* Align perfectly to the right */
     }
 
     .hero-content-wrapper {
@@ -424,8 +449,56 @@ body {
     .hero-right-side {
         display: flex;
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 2rem;
         align-items: flex-start;
+    }
+
+    .edition-title {
+        font-size: 2.5rem;
+        font-weight: 900;
+        background: linear-gradient(to right, #ffffff, var(--accent-magenta));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.5rem;
+        letter-spacing: -1px;
+    }
+
+    .edition-sub {
+        font-size: 1.1rem;
+        font-weight: 600;
+        letter-spacing: 3px;
+        color: rgba(255, 255, 255, 0.6);
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+    }
+
+    .edition-text {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.7);
+        max-width: 550px;
+    }
+
+    .btn-pill {
+        padding: 1rem 2.5rem;
+        font-size: 1rem;
+        font-weight: 700;
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        background: transparent;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 100px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        display: inline-block;
+        box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+    }
+
+    .btn-pill:hover {
+        background: #ffffff;
+        color: #000;
+        transform: scale(1.05) translateY(-3px);
+        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
     }
 
     .hero-logo-container {
@@ -439,7 +512,14 @@ body {
     .yuva-hero-img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
+        filter: drop-shadow(0 0 30px rgba(164, 80, 255, 0.4));
+        animation: floatLogo 6s ease-in-out infinite;
+    }
+
+    @keyframes floatLogo {
+        0%, 100% { transform: translateY(0) rotate(0); }
+        50% { transform: translateY(-15px) rotate(2deg); }
     }
 
     /* Event Grid Refinement (Sketch 3) */
@@ -1299,6 +1379,7 @@ footer {
         position: absolute;
         top: 1.5rem;
         right: 1.5rem;
+        
     }
 
     .hero-logo-container {
