@@ -178,10 +178,11 @@ const eventData = {
             'Registration Fee per participant: Rs. 200/-'
         ],
         prizes: {
-            first: 'Rs. 3,000/-',
-            second: 'Rs. 2,000/-',
-            third: 'Rs. 1,000/-'
-        }
+            first: 'Rs. 10,000/-',
+            second: 'Rs. 6,000/-',
+            third: 'Rs. 4,000/-'
+        },
+        prizeImage: 'assests/prizes/15.png'
     },
     'overall-champions': {
         title: 'Overall Champions',

@@ -37,9 +37,36 @@ function initHomePage() {
             </div>
             <div class="event-text-content">
                 <h3 class="event-item-title">${data.title}</h3>
+                <span class="event-arrow-web">→</span>
+                <span class="event-arrow-mobile">${isEven ? '→' : '←'}</span>
             </div>
-            <div class="event-arrow">${isEven ? '→' : '←'}</div>
         `;
+
+        // Touch Gesture Support (Swipe to open)
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        item.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        item.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        const handleSwipe = () => {
+            const swipedPath = touchEndX - touchStartX;
+            const threshold = 50; // pixels
+            
+            if (Math.abs(swipedPath) > threshold) {
+                const direction = swipedPath > 0 ? 'exit-right' : 'exit-left';
+                item.classList.add(direction);
+                setTimeout(() => {
+                    window.location.href = `rules.html?event=${id}`;
+                }, 400);
+            }
+        };
 
         item.addEventListener('click', () => {
             const animationClass = isEven ? 'exit-right' : 'exit-left';
@@ -133,6 +160,31 @@ function initRulesPage() {
     // Build the rules list
     const rulesHTML = data.rules.map(rule => `<li>${rule}</li>`).join('');
 
+    // Determine prize display (Web uses text, Mobile uses image if available)
+    const isMobile = window.innerWidth <= 768;
+    let prizeContent = '';
+
+    if (isMobile && data.prizeImage) {
+        prizeContent = `<img src="${data.prizeImage}" alt="Prizes" class="prize-image-bill">`;
+    } else {
+        prizeContent = `
+            <div class="prizes-grid">
+                <div class="prize-card first">
+                    <div class="prize-rank">1st Place</div>
+                    <div class="prize-amount">${data.prizes.first.replace('Overall Champions: ', '').replace('First Runner Up: ', '').replace('Second Runner Up: ', '')}</div>
+                </div>
+                <div class="prize-card second">
+                    <div class="prize-rank">2nd Place</div>
+                    <div class="prize-amount">${data.prizes.second.replace('Overall Champions: ', '').replace('First Runner Up: ', '').replace('Second Runner Up: ', '')}</div>
+                </div>
+                ${data.prizes.third ? `
+                <div class="prize-card third">
+                    <div class="prize-rank">3rd Place</div>
+                    <div class="prize-amount">${data.prizes.third.replace('Overall Champions: ', '').replace('First Runner Up: ', '').replace('Second Runner Up: ', '')}</div>
+                </div>` : ''}
+            </div>`;
+    }
+
     // Apply header gradient if specified
     content.style.setProperty('--primary-color', data.color || '#ff007a');
 
@@ -144,7 +196,6 @@ function initRulesPage() {
             </div>
             <div>
                 <h1 class="rules-title" style="--header-gradient: ${data.gradient}">${data.title}</h1>
-                <!-- Paragraph description removed as per request -->
             </div>
         </div>
 
@@ -159,22 +210,7 @@ function initRulesPage() {
             <div class="rules-section prizes-section">
                 <h2 class="section-title">Prizes</h2>
                 <div class="prize-image-container">
-                    ${data.prizeImage ? `<img src="${data.prizeImage}" alt="Prizes" class="prize-image-bill">` : `
-                    <div class="prizes-grid">
-                        <div class="prize-card first">
-                            <div class="prize-rank">1st Place</div>
-                            <div class="prize-amount">${data.prizes.first.replace('Overall Champions: ', '').replace('First Runner Up: ', '').replace('Second Runner Up: ', '')}</div>
-                        </div>
-                        <div class="prize-card second">
-                            <div class="prize-rank">2nd Place</div>
-                            <div class="prize-amount">${data.prizes.second.replace('Overall Champions: ', '').replace('First Runner Up: ', '').replace('Second Runner Up: ', '')}</div>
-                        </div>
-                        ${data.prizes.third ? `
-                        <div class="prize-card third">
-                            <div class="prize-rank">3rd Place</div>
-                            <div class="prize-amount">${data.prizes.third.replace('Overall Champions: ', '').replace('First Runner Up: ', '').replace('Second Runner Up: ', '')}</div>
-                        </div>` : ''}
-                    </div>`}
+                    ${prizeContent}
                 </div>
             </div>
         </div>

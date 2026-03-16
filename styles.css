@@ -201,7 +201,7 @@ body {
     text-decoration: none;
     color: #fff;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    
+
     /* Staggered Entrance */
     opacity: 0;
     transform: translateX(30px);
@@ -575,35 +575,46 @@ body {
 }
 
 .events-list {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
     margin-top: 2rem;
+    align-items: start;
 }
 
 /* Event List (Sketch Style) */
 .event-list-item {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-    padding: 1.5rem 0;
-    background: none;
-    border-radius: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-direction: column;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
-    overflow: visible;
-}
-
-.event-list-item:last-child {
-    border-bottom: none;
+    overflow: hidden;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    aspect-ratio: 1 / 1; /* Force square */
 }
 
 .event-list-item:hover {
-    background: none;
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Clean up old overrides that interfere with the card layout */
+.slide-right,
+.slide-left {
+    flex-direction: column !important;
+}
+
+.slide-right .event-image-container,
+.slide-left .event-image-container,
+.slide-right .event-text-content,
+.slide-left .event-text-content,
+.slide-right .event-arrow,
+.slide-left .event-arrow {
+    order: unset !important;
+    text-align: unset !important;
 }
 
 /* Right Sliding (Image Left) */
@@ -645,21 +656,24 @@ body {
 }
 
 .event-image-container {
-    width: 90px;
-    height: 90px;
-    border-radius: 20px;
-    flex-shrink: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
     overflow: hidden;
     background: rgba(255, 255, 255, 0.05);
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1;
 }
 
 .event-img-small {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; /* Ensures image fills the square box */
     transition: transform 0.3s ease;
 }
 
@@ -668,27 +682,48 @@ body {
 }
 
 .event-text-content {
-    flex-grow: 1;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 1.2rem 1.5rem !important;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 20%, transparent 100%) !important;
+    gap: 0.8rem;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    z-index: 2;
 }
 
 .event-item-title {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    margin-bottom: 0.3rem;
+    margin: 0 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
 }
 
 .event-item-desc {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    line-height: 1.4;
+    display: none;
 }
 
-.event-arrow {
+.event-arrow-web {
     opacity: 0.6;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    font-size: 1.2rem;
 }
 
-.event-list-item:hover .event-arrow {
+.event-arrow-mobile {
+    display: none; /* Only for mobile rows */
+    font-size: 1.4rem;
+}
+
+.event-list-item:hover .event-arrow-web {
     opacity: 1;
     transform: translateX(5px);
 }
@@ -699,20 +734,28 @@ body {
 
 /* Champions Card (Sketch Style) */
 .event-list-item-champions {
-    margin-top: 4rem;
+    margin-top: 0;
     display: flex;
     flex-direction: column;
-    width: 100%;
     cursor: pointer;
     transition: transform 0.3s ease;
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    aspect-ratio: 1 / 1; /* Force square to match others */
+    position: relative; /* CRITICAL: Fix for absolute positioning of children */
 }
 
 .champions-image-box {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 300px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 24px 24px 0 0;
+    height: 100%;
+    border-radius: 16px;
     overflow: hidden;
+    z-index: 1;
 }
 
 .champions-image-box img {
@@ -724,17 +767,23 @@ body {
 }
 
 .champions-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.5rem 2rem;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top: none;
-    border-radius: 0 0 24px 24px;
+    padding: 1.2rem 1.5rem;
+    border-radius: 0 0 16px 16px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 20%, transparent 100%);
+    gap: 0.8rem;
+    z-index: 2;
+    box-sizing: border-box;
 }
 
 .champions-title {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-weight: 700;
 }
 
@@ -744,10 +793,12 @@ body {
 
 .rules-container {
     padding-top: 3rem;
-    padding-left: 2rem; /* Align from margin */
+    padding-left: 2rem;
+    /* Align from margin */
     padding-right: 2rem;
     animation: fadeIn 0.5s ease;
-    max-width: 100%; /* Don't be too narrow/centered */
+    max-width: 100%;
+    /* Don't be too narrow/centered */
 }
 
 @keyframes fadeIn {
@@ -856,26 +907,44 @@ body {
 }
 
 .rules-list li {
-    background: transparent; /* Remove backgrounds */
-    margin-bottom: 1rem;
-    padding: 1rem 0;
+    background: rgba(255, 255, 255, 0.02);
+    margin-bottom: 1.2rem;
+    padding: 1.2rem 1.5rem;
     font-size: 1.1rem;
     line-height: 1.6;
-    border-left: 3px solid var(--primary-color);
-    transition: all 0.3s ease;
-    text-align: justify; /* Justified text */
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-align: justify;
+    position: relative;
+    list-style: none;
+}
+
+.rules-list li::before {
+    content: "✦";
+    color: var(--accent-magenta);
+    position: absolute;
+    left: -25px;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
 }
 
 .rules-list li:hover {
     transform: translateX(10px);
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.rules-list li:hover::before {
+    opacity: 1;
 }
 
 .prize-image-container {
     margin-top: 2rem;
     width: 100%;
     display: flex;
-    justify-content: flex-start; /* Aligned to margin */
+    justify-content: flex-start;
+    /* Aligned to margin */
 }
 
 .prize-image-bill {
@@ -1130,6 +1199,90 @@ footer {
     background: #0a0a0a;
 }
 
+/* Prizes Grid - clean 3-box format for web */
+.prizes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 900px;
+}
+
+.prize-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+}
+
+.prize-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-5px);
+    border-color: var(--accent-magenta);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.prize-rank {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent-magenta);
+    margin-bottom: 0.8rem;
+    opacity: 0.9;
+}
+
+.prize-amount {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: -0.5px;
+}
+
+.prize-image-bill {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease;
+}
+
+.prize-image-bill:hover {
+    transform: scale(1.02);
+}
+
+/* Exit Animations for Swipe/Click */
+.exit-right {
+    animation: exitRight 0.4s forwards;
+}
+
+.exit-left {
+    animation: exitLeft 0.4s forwards;
+}
+
+@keyframes exitRight {
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes exitLeft {
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
 /* Media Queries */
 @media screen and (max-width: 768px) {
     .corner-image-container {
@@ -1161,15 +1314,159 @@ footer {
 
     .event-list-item {
         flex-direction: row;
-        padding: 1.5rem;
+        padding: 1.2rem 0;
         text-align: left;
-        gap: 1.5rem;
-        justify-content: space-between;
+        gap: 2rem; /* Proper space requested */
+        justify-content: center; /* Horizontally center contents */
+        border-radius: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        background: none;
+        border: none;
+        aspect-ratio: auto;
+        position: static;
+        width: 100%;
     }
 
     .event-image-container {
-        width: 65px;
-        height: 65px;
+        position: static;
+        width: 60px; /* Slimmer for better center balance */
+        height: 60px;
+        min-height: unset;
+        flex-grow: unset;
+        flex-shrink: 0;
+        border-radius: 12px;
+        background: none;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .event-text-content {
+        position: static;
+        display: flex !important;
+        flex-grow: 0; /* Don't take all space, allow centering */
+        padding: unset !important;
+        background: none !important;
+        gap: 0 !important;
+        width: auto !important;
+        min-width: 140px; /* Ensure title has consistent space */
+        align-items: center !important;
+        justify-content: center !important;
+        flex-direction: row !important;
+    }
+
+    .event-item-title {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.2rem; /* Clear neat typo */
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        margin: 0 !important;
+        white-space: nowrap;
+        overflow: visible;
+        flex: unset;
+        text-align: center;
+        color: #ffffff;
+    }
+
+    /* Arrow visibility and centering balance */
+    .event-arrow-web {
+        display: none !important;
+    }
+
+    .event-arrow-mobile {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        width: 60px; /* Match image width for symmetry */
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 1.4rem;
+        flex-shrink: 0;
+    }
+
+    .event-item-desc {
+        display: block;
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        line-height: 1.4;
+    }
+
+    /* Restore slide animations for mobile staggered layout */
+    .slide-right {
+        flex-direction: row !important;
+    }
+
+    .slide-right .event-image-container {
+        order: 1 !important;
+    }
+
+    .slide-right .event-text-content {
+        order: 2 !important;
+        flex-direction: row !important;
+    }
+
+    .slide-left {
+        flex-direction: row !important;
+    }
+
+    .slide-left .event-text-content {
+        order: 1 !important;
+        flex-direction: row-reverse !important;
+    }
+
+    .slide-left .event-image-container {
+        order: 2 !important;
+    }
+
+    .event-list-item-champions {
+        display: flex;
+        flex-direction: column;
+        grid-column: unset;
+        grid-row: unset;
+        margin-top: 3rem;
+        width: 100%;
+        background: none;
+        border: none;
+        border-radius: 0;
+        aspect-ratio: auto;
+        position: static;
+    }
+
+    .champions-image-box {
+        position: static;
+        height: auto;
+        min-height: 250px;
+        border-radius: 20px;
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+    }
+
+    .champions-footer {
+        position: static;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 1.2rem 1.5rem;
+    }
+    
+    .champions-title {
+        font-size: 1.6rem;
+    }
+
+    .champions-image-box {
+        min-height: 300px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 24px 24px 0 0;
+        flex-grow: unset;
+        height: 300px;
+    }
+
+    .champions-footer {
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top: none;
+        border-radius: 0 0 24px 24px;
+        padding: 1.5rem 2rem;
+        background: none;
     }
 
     .hero-title {
@@ -1236,10 +1533,31 @@ footer {
         margin-bottom: 1rem;
     }
 
+    .rules-list {
+        padding-left: 0;
+    }
+
     .rules-list li {
-        padding: 0.8rem 1rem;
-        font-size: 0.85rem;
-        margin-bottom: 0.6rem;
+        padding: 0.8rem 0;
+        padding-left: 2rem;
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
+        background: none;
+        border-radius: 0;
+        line-height: 1.6;
+        text-align: left;
+        border-left: none;
+        color: rgba(255, 255, 255, 0.9);
+        position: relative;
+    }
+
+    .rules-list li::before {
+        display: block; /* Show star on mobile now that background is gone */
+        content: "✦";
+        color: var(--accent-magenta);
+        position: absolute;
+        left: 0;
+        opacity: 1;
     }
 
     .prizes-grid {
@@ -1260,7 +1578,8 @@ footer {
 }
 
 /* Gallery and Brochure Styles */
-.gallery-header, .brochure-header {
+.gallery-header,
+.brochure-header {
     text-align: left;
     margin-bottom: 3rem;
 }
@@ -1364,13 +1683,14 @@ footer {
     .gallery-title {
         font-size: 2.2rem;
     }
-    
+
     .gallery-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
-    
-    .gallery-header, .brochure-header {
+
+    .gallery-header,
+    .brochure-header {
         margin-bottom: 2rem;
     }
 }
