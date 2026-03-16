@@ -72,7 +72,7 @@ const eventData = {
             second: 'Rs. 6,000/-',
             third: 'Rs. 4,000/-'
         },
-        prizeImage: 'assests/prizes/15.png'
+        prizeImage: 'assests/prizes/10.png'
     },
     'solo-dance': {
         title: 'Solo Dance',
@@ -138,7 +138,8 @@ const eventData = {
             first: 'Rs. 15,000/-',
             second: 'Rs. 9,000/-',
             third: 'Rs. 4,000/-'
-        }
+        },
+        prizeImage: 'assests/prizes/15.png'
     },
     'face-painting': {
         title: 'Face Painting',
@@ -178,11 +179,11 @@ const eventData = {
             'Registration Fee per participant: Rs. 200/-'
         ],
         prizes: {
-            first: 'Rs. 10,000/-',
-            second: 'Rs. 6,000/-',
-            third: 'Rs. 4,000/-'
+            first: 'Rs. 3,000/-',
+            second: 'Rs. 2,000/-',
+            third: 'Rs. 1,000/-'
         },
-        prizeImage: 'assests/prizes/15.png'
+        prizeImage: 'assests/prizes/3.png'
     },
     'overall-champions': {
         title: 'Overall Champions',

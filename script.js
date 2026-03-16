@@ -28,8 +28,12 @@ function initHomePage() {
     // Loop through standard events
     eventsArray.forEach(([id, data], index) => {
         const item = document.createElement('div');
+        const isMobile = window.innerWidth <= 768;
         const isEven = index % 2 === 0;
-        item.className = `event-list-item ${isEven ? 'slide-right' : 'slide-left'}`;
+        
+        // Staggered layout classes only for mobile
+        const staggeredClass = isMobile ? (isEven ? 'slide-right' : 'slide-left') : '';
+        item.className = `event-list-item ${staggeredClass}`;
         
         item.innerHTML = `
             <div class="event-image-container">
@@ -69,11 +73,16 @@ function initHomePage() {
         };
 
         item.addEventListener('click', () => {
-            const animationClass = isEven ? 'exit-right' : 'exit-left';
-            item.classList.add(animationClass);
-            setTimeout(() => {
+            // Sliding animation only for mobile
+            if (isMobile) {
+                const animationClass = isEven ? 'exit-right' : 'exit-left';
+                item.classList.add(animationClass);
+                setTimeout(() => {
+                    window.location.href = `rules.html?event=${id}`;
+                }, 400);
+            } else {
                 window.location.href = `rules.html?event=${id}`;
-            }, 400);
+            }
         });
 
         grid.appendChild(item);

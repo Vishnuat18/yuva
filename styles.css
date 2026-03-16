@@ -329,7 +329,6 @@ body {
     line-height: 1.2;
     font-weight: 400;
     color: #fff;
-    margin-top: 1rem;
 }
 
 .hero-presents span {
@@ -341,20 +340,15 @@ body {
     margin-top: 5px;
 }
 
-.hero-logo-container {
+.hero-logo-box {
     position: relative;
     width: 350px;
     height: 350px;
-    margin: 3rem auto;
+    margin: 1.5rem auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 60px rgba(157, 80, 187, 0.3);
     overflow: hidden;
-    transition: all 0.5s ease;
 }
 
 .yuva-hero-img {
@@ -420,33 +414,35 @@ body {
     .hero-content-wrapper {
         display: grid;
         grid-template-columns: 1fr 1.2fr;
-        gap: 6rem;
+        grid-template-areas: 
+            "logo presents"
+            "logo info";
+        gap: 0 6rem;
         align-items: center;
         width: 100%;
         max-width: 1200px;
         margin: 0 auto;
     }
 
-    .hero-left-side {
-        display: flex;
-        flex-direction: column;
-        gap: 2.5rem;
-        align-items: flex-start;
-    }
-
-    .hero-right-side {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        align-items: flex-start;
-    }
-
-    .hero-logo-container {
+    .hero-logo-box {
+        grid-area: logo;
         width: 380px;
         height: 380px;
         margin: 0;
-        border-radius: 40px;
-        box-shadow: 0 0 50px rgba(157, 80, 187, 0.2);
+        overflow: hidden;
+    }
+
+    .hero-presents-box {
+        grid-area: presents;
+        text-align: left;
+    }
+
+    .hero-info-box {
+        grid-area: info;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
     }
 
     .yuva-hero-img {
@@ -516,7 +512,7 @@ body {
     justify-content: center;
 }
 
-.hero-info {
+.hero-info-box {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -1314,9 +1310,26 @@ footer {
         right: 1.5rem;
     }
 
-    .hero-logo-container {
-        width: 250px;
-        height: 250px;
+    .hero-logo-box {
+        width: 280px;
+        height: 280px;
+    }
+
+    .hero-content-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .hero-presents-box { order: 1; text-align: center; }
+    .hero-logo-box { order: 2; }
+    .hero-info-box { 
+        order: 3; 
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .events-list {
@@ -1327,14 +1340,14 @@ footer {
 
     .event-list-item {
         flex-direction: row;
-        padding: 1.2rem 0;
+        padding: 1.5rem 0;
         text-align: left;
-        gap: 2rem; /* Proper space requested */
-        justify-content: center; /* Horizontally center contents */
+        gap: 2rem;
+        justify-content: center;
         border-radius: 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         background: none;
         border: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Clear separator line */
         aspect-ratio: auto;
         position: static;
         width: 100%;
