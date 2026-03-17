@@ -68,7 +68,7 @@ function initHomePage() {
                 item.classList.add(direction);
                 setTimeout(() => {
                     window.location.href = `rules.html?event=${id}`;
-                }, 400);
+                }, 300);
             }
         };
 
@@ -79,7 +79,7 @@ function initHomePage() {
                 item.classList.add(animationClass);
                 setTimeout(() => {
                     window.location.href = `rules.html?event=${id}`;
-                }, 400);
+                }, 300);
             } else {
                 window.location.href = `rules.html?event=${id}`;
             }

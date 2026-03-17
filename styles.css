@@ -916,14 +916,15 @@ body {
 }
 
 .rules-list li {
-    background: rgba(255, 255, 255, 0.02);
-    margin-bottom: 1.2rem;
-    padding: 1.2rem 1.5rem;
+    background: transparent;
+    margin-bottom: 0;
+    padding: 1.5rem 0.5rem;
     font-size: 1.1rem;
     line-height: 1.6;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
     text-align: justify;
     position: relative;
     list-style: none;
@@ -1271,11 +1272,11 @@ footer {
 
 /* Exit Animations for Swipe/Click */
 .exit-right {
-    animation: exitRight 0.4s forwards;
+    animation: exitRight 0.3s ease-out forwards;
 }
 
 .exit-left {
-    animation: exitLeft 0.4s forwards;
+    animation: exitLeft 0.3s ease-out forwards;
 }
 
 @keyframes exitRight {
@@ -1290,6 +1291,21 @@ footer {
         transform: translateX(-100%);
         opacity: 0;
     }
+}
+
+/* Swipe Indicator Animation */
+@keyframes swipeHint {
+    0%, 100% { transform: translateX(0); opacity: 0.4; }
+    50% { transform: translateX(10px); opacity: 1; }
+}
+
+@keyframes swipeHintLeft {
+    0%, 100% { transform: translateX(0); opacity: 0.4; }
+    50% { transform: translateX(-10px); opacity: 1; }
+}
+
+.event-list-item {
+    will-change: transform, opacity;
 }
 
 /* Media Queries */
@@ -1405,9 +1421,14 @@ footer {
         align-items: center;
         justify-content: center;
         width: 60px; /* Match image width for symmetry */
-        color: rgba(255, 255, 255, 0.4);
+        color: var(--accent-magenta);
         font-size: 1.4rem;
         flex-shrink: 0;
+        animation: swipeHint 1.5s infinite ease-in-out;
+    }
+
+    .slide-left .event-arrow-mobile {
+        animation: swipeHintLeft 1.5s infinite ease-in-out;
     }
 
     .event-item-desc {
@@ -1564,15 +1585,16 @@ footer {
     }
 
     .rules-list li {
-        padding: 0.8rem 0;
+        padding: 1.2rem 0;
         padding-left: 2rem;
         font-size: 1rem;
-        margin-bottom: 0.8rem;
-        background: none;
+        margin-bottom: 0;
+        background: transparent;
         border-radius: 0;
         line-height: 1.6;
         text-align: left;
-        border-left: none;
+        border: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         color: rgba(255, 255, 255, 0.9);
         position: relative;
     }
