@@ -200,8 +200,8 @@ function initRulesPage() {
     // Populate the content structure
     content.innerHTML = `
         <div class="rules-header">
-            <div class="rules-icon" style="background: ${data.gradient}; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                ${data.icon}
+            <div class="rules-icon">
+                <img src="${data.image}" alt="${data.title}" class="rules-header-img">
             </div>
             <div>
                 <h1 class="rules-title" style="--header-gradient: ${data.gradient}">${data.title}</h1>
