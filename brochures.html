@@ -7,7 +7,8 @@
     <title>Event Brochure - YUVA 2026</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"></noscript>
     <link rel="stylesheet" href="styles.css">
     <link rel="shortcut icon" href="assests/YUVA.png">
 </head>
@@ -32,7 +33,7 @@
 
         <div class="brochure-viewer">
             <div class="brochure-img-container">
-                <img src="assests/broucher.jpeg" alt="YUVA 2026 Brochure" class="brochure-img">
+                <img src="assests/broucher.jpeg" alt="YUVA 2026 Brochure" class="brochure-img" width="800" height="auto" loading="lazy">
             </div>
             <div class="brochure-actions">
                 <a href="assests/broucher.jpeg" download class="btn-pill">Download Brochure &darr;</a>
@@ -40,8 +41,8 @@
         </div>
     </div>
 
-    <script src="data.js"></script>
-    <script src="script.js"></script>
+    <script src="data.js" defer></script>
+    <script src="script.js" defer></script>
 </body>
 
 </html>

@@ -46,47 +46,66 @@ function initHomePage() {
             </div>
         `;
 
-        // Touch Gesture Support (Swipe to open)
-        let touchStartX = 0;
-        let touchEndX = 0;
+        grid.appendChild(item);
+    });
 
-        item.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
+    // Event Delegation for Clicks and Swipes
+    grid.addEventListener('click', (e) => {
+        const item = e.target.closest('.event-list-item');
+        if (!item) return;
 
-        item.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        }, { passive: true });
+        const eventId = Object.keys(eventData).find(id => {
+            const data = eventData[id];
+            return item.querySelector('.event-item-title').textContent === data.title;
+        });
 
-        const handleSwipe = () => {
-            const swipedPath = touchEndX - touchStartX;
-            const threshold = 50; // pixels
-            
-            if (Math.abs(swipedPath) > threshold) {
-                const direction = swipedPath > 0 ? 'exit-right' : 'exit-left';
-                item.classList.add(direction);
-                setTimeout(() => {
-                    window.location.href = `rules.html?event=${id}`;
-                }, 300);
-            }
-        };
-
-        item.addEventListener('click', () => {
-            // Sliding animation only for mobile
-            if (isMobile) {
+        if (eventId) {
+            if (window.innerWidth <= 768) {
+                const index = Array.from(grid.children).indexOf(item);
+                const isEven = index % 2 === 0;
                 const animationClass = isEven ? 'exit-right' : 'exit-left';
                 item.classList.add(animationClass);
                 setTimeout(() => {
-                    window.location.href = `rules.html?event=${id}`;
+                    window.location.href = `rules.html?event=${eventId}`;
                 }, 300);
             } else {
-                window.location.href = `rules.html?event=${id}`;
+                window.location.href = `rules.html?event=${eventId}`;
             }
-        });
-
-        grid.appendChild(item);
+        }
     });
+
+    // Use a shared touch tracker for better performance
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    grid.addEventListener('touchstart', (e) => {
+        const item = e.target.closest('.event-list-item');
+        if (item) touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    grid.addEventListener('touchend', (e) => {
+        const item = e.target.closest('.event-list-item');
+        if (!item) return;
+
+        touchEndX = e.changedTouches[0].screenX;
+        const swipedPath = touchEndX - touchStartX;
+        const threshold = 50;
+
+        if (Math.abs(swipedPath) > threshold) {
+            const eventId = Object.keys(eventData).find(id => {
+                const data = eventData[id];
+                return item.querySelector('.event-item-title').textContent === data.title;
+            });
+
+            if (eventId) {
+                const direction = swipedPath > 0 ? 'exit-right' : 'exit-left';
+                item.classList.add(direction);
+                setTimeout(() => {
+                    window.location.href = `rules.html?event=${eventId}`;
+                }, 300);
+            }
+        }
+    }, { passive: true });
 
     // Render Champions Card
     if (championsEntry) {

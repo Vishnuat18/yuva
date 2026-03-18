@@ -11,7 +11,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Dancing+Script:wght@400..700&display=swap"
-        rel="stylesheet">
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Dancing+Script:wght@400..700&display=swap"></noscript>
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -19,7 +20,7 @@
     <div class="background-animation"></div>
 
     <div class="corner-image-container">
-        <img src="assests/image.png" alt="Decoration" class="corner-image">
+        <img src="assests/image.png" alt="Decoration" class="corner-image" width="180" height="auto" loading="lazy">
     </div>
 
     <!-- Hamburger Menu Overlay -->
@@ -104,7 +105,7 @@
 
             <!-- Part 2: Logo -->
             <div class="hero-logo-box" style="margin: 10px;">
-                <img src="assests/YUVA.png" alt="YUVA Logo" class="yuva-hero-img">
+                <img src="assests/YUVA.png" alt="YUVA Logo" class="yuva-hero-img" width="350" height="350">
             </div>
 
             <!-- Part 3: Info & CTA -->
@@ -152,8 +153,8 @@
         <p>&copy; 2026 RPSIT YUVA Culturals. All Rights Reserved.</p>
     </footer>
 
-    <script src="data.js"></script>
-    <script src="script.js"></script>
+    <script src="data.js" defer></script>
+    <script src="script.js" defer></script>
     <script>
         // Initialize home page
         document.addEventListener('DOMContentLoaded', () => {
